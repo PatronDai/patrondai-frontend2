@@ -10,6 +10,7 @@ import Projects from "./components/Projects";
 import EthereumContext from "./contexts/EthereumContext";
 import Torus from "@toruslabs/torus-embed";
 import { ethers } from "ethers";
+import WalletAddress from "./components/WalletAddress";
 const network = "rinkeby";
 const torus = new Torus();
 
@@ -42,6 +43,7 @@ class App extends React.Component {
             <Route exact path="/" component={Projects} />
             <Route path="/start" component={CreateNewForm} />
           </div>
+          <WalletAddress />
         </EthereumContext.Provider>
       </div>
     );
@@ -54,12 +56,15 @@ class App extends React.Component {
   }
   async handleTorusAuth() {
     await torus.login();
+    const provider = new ethers.providers.Web3Provider(torus.provider);
+    const signer = provider.getSigner(0);
+    this.setState({ provider, signer, address: await signer.getAddress() });
   }
   async handleMetamaskAuth() {
     await window.ethereum.enable();
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner(0);
-    this.setState({ provider, signer });
+    this.setState({ provider, signer, address: await signer.getAddress() });
   }
 }
 

@@ -13,6 +13,7 @@
     "carbon-components-react": "^7.9.3",
     "ethers": "^4.0.45",
     "node-sass": "^4.13.1",
+    "patrondai-contracts": "https://github.com/PatronDai/patrondai-contracts",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-router": "^5.1.2",

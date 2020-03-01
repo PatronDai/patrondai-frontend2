@@ -18,12 +18,12 @@ export default class NavBar extends Component {
   render() {
     return (
       <Header aria-label="PatronDai">
-        <HeaderName href="#" prefix="EthLondonUK">
+        <HeaderName href="#" prefix="Eth">
           PatronDai
         </HeaderName>
-        <HeaderNavigation>
-          <HeaderLink to="/">Browse campaigns</HeaderLink>
-          <HeaderLink to="/start">Start your own campaign</HeaderLink>
+        <HeaderNavigation style={{ display: "block" }}>
+          <HeaderLink to="/">Browse</HeaderLink>
+          <HeaderLink to="/start">Start</HeaderLink>
         </HeaderNavigation>
         <HeaderGlobalBar>
           <HeaderGlobalAction aria-label="App Switcher" onClick={() => {}}>

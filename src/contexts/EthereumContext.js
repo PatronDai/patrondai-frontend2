@@ -1,5 +1,7 @@
 const React = require("react");
 
 export default React.createContext({
-  provider: null
+  provider: null,
+  signer: null,
+  account: null
 });

@@ -21,7 +21,7 @@ export default class NavBar extends Component {
   render() {
     return (
       <Header aria-label="PatronDai">
-        <HeaderName href="#" prefix="Eth">
+        <HeaderName href="/" prefix="Eth">
           PatronDai
         </HeaderName>
         <HeaderNavigation style={{ display: "block" }}>

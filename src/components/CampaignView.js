@@ -3,8 +3,10 @@ import React, { Component } from "react";
 import RinkebyEnv from "patrondai-contracts/.openzeppelin/rinkeby.json";
 import PatronDaiCampaignsRegistry from "patrondai-contracts/build/contracts/PatronDaiCampaignsRegistry.json";
 import PatronDaiCampaign from "patrondai-contracts/build/contracts/PatronDaiCampaign.json";
+import IERC20 from "patrondai-contracts/build/contracts/IERC20.json";
 import { ethers } from "ethers";
 import EthereumContext from "../contexts/EthereumContext";
+import { Button } from "carbon-components-react";
 
 export default class CampaignView extends Component {
   constructor(props) {
@@ -27,10 +29,11 @@ export default class CampaignView extends Component {
       PatronDaiCampaign.abi,
       this.context.provider
     );
+    const daiAddress = await this.contract.getDaiAddress();
     const data = await fetch(
       "https://centralization.sucks.af/api/campaign/" + address
     ).then(r => r.json());
-    this.setState({ address, data: data.data });
+    this.setState({ address, data: data.data, daiAddress });
   }
   render() {
     if (!this.state.data) return "Loading...";
@@ -55,6 +58,75 @@ export default class CampaignView extends Component {
               />
             </div>
             <div style={{ opacity: 0.5, padding: 4 }}>{this.state.address}</div>
+          </div>
+
+          <div
+            class="bx--col"
+            style={{ display: this.context.signer ? "block" : "none" }}
+          >
+            <Button
+              style={{ marginRight: 10, marginBottom: 10 }}
+              onClick={() => {
+                const scontract = new ethers.Contract(
+                  this.state.daiAddress,
+                  IERC20.abi,
+                  this.context.signer
+                );
+                scontract
+                  .approve(
+                    this.state.address,
+                    ethers.utils.parseEther("1000000000000")
+                  )
+                  .catch(alert);
+              }}
+            >
+              Set allowance
+            </Button>
+            <Button
+              style={{ marginRight: 10, marginBottom: 10 }}
+              onClick={() => {
+                const scontract = new ethers.Contract(
+                  this.state.address,
+                  PatronDaiCampaign.abi,
+                  this.context.signer
+                );
+                scontract
+                  .support(ethers.utils.parseEther(prompt("How much?")))
+                  .catch(alert);
+              }}
+            >
+              Support
+            </Button>
+            <Button
+              style={{ marginRight: 10, marginBottom: 10 }}
+              onClick={() => {
+                const scontract = new ethers.Contract(
+                  this.state.address,
+                  PatronDaiCampaign.abi,
+                  this.context.signer
+                );
+                scontract
+                  .stopSupporting(ethers.utils.parseEther(prompt("How much?")))
+                  .catch(alert);
+              }}
+            >
+              Stop supporting
+            </Button>
+            <Button
+              style={{ marginRight: 10, marginBottom: 10 }}
+              onClick={() => {
+                const scontract = new ethers.Contract(
+                  this.state.address,
+                  PatronDaiCampaign.abi,
+                  this.context.signer
+                );
+                scontract
+                  .withdraw(ethers.utils.parseEther(prompt("How much?")))
+                  .catch(alert);
+              }}
+            >
+              Withdraw
+            </Button>
           </div>
         </div>
       </div>

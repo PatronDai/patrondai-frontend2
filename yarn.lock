@@ -8017,7 +8017,7 @@ path-type@^4.0.0:
 
 "patrondai-contracts@https://github.com/PatronDai/patrondai-contracts":
   version "1.0.0"
-  resolved "https://github.com/PatronDai/patrondai-contracts#0e216dc194ed26767426e00fdb2b57998d2bd63e"
+  resolved "https://github.com/PatronDai/patrondai-contracts#bc81f4420938f7af997735f8b4a0c697f0f65e5c"
 
 pbkdf2@^3.0.3:
   version "3.0.17"

@@ -11,6 +11,7 @@ import EthereumContext from "./contexts/EthereumContext";
 import Torus from "@toruslabs/torus-embed";
 import { ethers } from "ethers";
 import WalletAddress from "./components/WalletAddress";
+import CampaignView from "./components/CampaignView";
 const network = "rinkeby";
 const torus = new Torus();
 
@@ -42,6 +43,7 @@ class App extends React.Component {
           <div>
             <Route exact path="/" component={Projects} />
             <Route path="/start" component={CreateNewForm} />
+            <Route path="/campaign/:address" component={CampaignView} />
           </div>
           <WalletAddress />
         </EthereumContext.Provider>

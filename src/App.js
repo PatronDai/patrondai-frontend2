@@ -1,10 +1,11 @@
 import React from "react";
+import { Route } from "react-router-dom";
 import { RampInstantSDK } from "@ramp-network/ramp-instant-sdk";
-import { Button } from "carbon-components-react";
 import "./App.css";
 import NavBar from "./components/NavBar";
 import Accounts from "./components/Accounts";
 import CreateNewForm from "./components/CreateNewForm";
+import Projects from "./components/Projects";
 
 class App extends React.Component {
   render() {
@@ -12,8 +13,10 @@ class App extends React.Component {
       <div className="App">
         <NavBar />
         <Accounts />
-
-        <CreateNewForm />
+        <div>
+          <Route exact path="/" component={Projects} />
+          <Route path="/start" component={CreateNewForm} />
+        </div>
       </div>
     );
   }

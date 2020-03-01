@@ -11,6 +11,8 @@ import {
 } from "carbon-components-react/lib/components/UIShell";
 
 import Exit20 from "@carbon/icons-react/lib/exit/20";
+import { Link } from "react-router-dom";
+import HeaderLink from "./HeaderLink";
 
 export default class NavBar extends Component {
   render() {
@@ -19,9 +21,9 @@ export default class NavBar extends Component {
         <HeaderName href="#" prefix="EthLondonUK">
           PatronDai
         </HeaderName>
-        <HeaderNavigation aria-label="IBM [Platform]">
-          <HeaderMenuItem href="#">Browse projects</HeaderMenuItem>
-          <HeaderMenuItem href="#">Start your own campaign</HeaderMenuItem>
+        <HeaderNavigation>
+          <HeaderLink to="/">Browse campaigns</HeaderLink>
+          <HeaderLink to="/start">Start your own campaign</HeaderLink>
         </HeaderNavigation>
         <HeaderGlobalBar>
           <HeaderGlobalAction aria-label="App Switcher" onClick={() => {}}>

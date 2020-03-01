@@ -8,7 +8,7 @@ import EthereumContext from "../contexts/EthereumContext";
 export default class EthAccount extends Component {
   render() {
     return (
-      <div class="bx--tile">
+      <div className="bx--tile">
         <div style={{ fontSize: 32 }}>0 ETH</div>
         <Button style={{ margin: 10 }} onClick={() => this.handleBuy()}>
           Buy more

@@ -32,7 +32,12 @@ class ProjectCard extends Component {
           this.props.history.push("/campaign/" + this.state.address);
         }}
         class="bx--tile"
-        style={{ textAlign: "left", width: "33%", margin: 10 }}
+        style={{
+          textAlign: "left",
+          width: "33%",
+          margin: 10,
+          cursor: "pointer"
+        }}
       >
         <div style={{ padding: 4 }}>
           <h3>{this.state.data.title}</h3>

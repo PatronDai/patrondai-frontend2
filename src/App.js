@@ -12,12 +12,12 @@ import Torus from "@toruslabs/torus-embed";
 import { ethers } from "ethers";
 const network = "rinkeby";
 const torus = new Torus();
-torus.init({ showTorusButton: false, network: { host: network } });
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      ready: false,
       provider: new ethers.getDefaultProvider(network),
       signer: null,
       account: null,
@@ -27,7 +27,12 @@ class App extends React.Component {
       }
     };
   }
+  async componentDidMount() {
+    await torus.init({ showTorusButton: false, network: { host: network } });
+    this.setState({ ready: true });
+  }
   render() {
+    if (!this.state.ready) return "Initializing...";
     return (
       <div className="App">
         <EthereumContext.Provider value={this.state}>

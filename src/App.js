@@ -8,14 +8,23 @@ import CreateNewForm from "./components/CreateNewForm";
 import Projects from "./components/Projects";
 
 import EthereumContext from "./contexts/EthereumContext";
+import Torus from "@toruslabs/torus-embed";
+import { ethers } from "ethers";
+const network = "rinkeby";
+const torus = new Torus();
+torus.init({ showTorusButton: false, network: { host: network } });
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      provider: null,
+      provider: new ethers.getDefaultProvider(network),
       signer: null,
-      account: null
+      account: null,
+      authInProgress: false,
+      auth: () => {
+        this.handleAuth();
+      }
     };
   }
   render() {
@@ -31,6 +40,21 @@ class App extends React.Component {
         </EthereumContext.Provider>
       </div>
     );
+  }
+  handleAuth() {
+    this.setState({ authInProgress: true });
+    if (window.ethereum) this.handleMetamaskAuth();
+    else this.handleTorusAuth();
+    this.setState({ authInProgress: false });
+  }
+  async handleTorusAuth() {
+    await torus.login();
+  }
+  async handleMetamaskAuth() {
+    await window.ethereum.enable();
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner(0);
+    this.setState({ provider, signer });
   }
 }
 

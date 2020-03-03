@@ -39,12 +39,13 @@ class App extends React.Component {
       <div className="App">
         <EthereumContext.Provider value={this.state}>
           <NavBar />
-          <Accounts />
+          {this.state.signer ? <Accounts /> : ""}
           <div>
             <Route exact path="/" component={Projects} />
             <Route path="/start" component={CreateNewForm} />
             <Route path="/campaign/:address" component={CampaignView} />
           </div>
+          <div style={{ clear: "both" }}></div>
           <WalletAddress />
         </EthereumContext.Provider>
       </div>

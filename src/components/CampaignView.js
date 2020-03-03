@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import RinkebyEnv from "patrondai-contracts/.openzeppelin/rinkeby.json";
 import PatronDaiCampaignsRegistry from "patrondai-contracts/build/contracts/PatronDaiCampaignsRegistry.json";
 import PatronDaiCampaign from "patrondai-contracts/build/contracts/PatronDaiCampaign.json";
+import CErc20 from "patrondai-contracts/build/contracts/CErc20.json";
 import IERC20 from "patrondai-contracts/build/contracts/IERC20.json";
 import { ethers } from "ethers";
 import EthereumContext from "../contexts/EthereumContext";
@@ -12,7 +13,8 @@ export default class CampaignView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      address: null
+      address: null,
+      raisedDai: "???"
     };
   }
   async componentDidMount() {
@@ -29,11 +31,30 @@ export default class CampaignView extends Component {
       PatronDaiCampaign.abi,
       this.context.provider
     );
+
+    const cDaiAddress = await this.contract.getCDaiAddress();
+
+    const cDaiContract = new ethers.Contract(
+      cDaiAddress,
+      CErc20.abi,
+      this.context.provider
+    );
+
     const daiAddress = await this.contract.getDaiAddress();
     const data = await fetch(
       "https://centralization.sucks.af/api/campaign/" + address
     ).then(r => r.json());
     this.setState({ address, data: data.data, daiAddress });
+    this.refresh();
+    this.interval = setInterval(() => this.refresh(), 5000);
+    this.refresh();
+  }
+  componentWillUnmount() {
+    if (this.interval) clearInterval(this.interval);
+  }
+  async refresh() {
+    const raisedDai = await this.contract.getDaiRaised();
+    this.setState({ raisedDai: ethers.utils.formatEther(raisedDai) });
   }
   render() {
     if (!this.state.data) return "Loading...";
@@ -127,6 +148,7 @@ export default class CampaignView extends Component {
             >
               Withdraw
             </Button>
+            <div>Dai in contract: {this.state.raisedDai}</div>
           </div>
         </div>
       </div>

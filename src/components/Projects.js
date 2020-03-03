@@ -31,7 +31,11 @@ export default class Projects extends Component {
     ].reverse();
     return (
       <div
-        style={{ padding: "0 22px", display: "flex", justifyContent: "center" }}
+        style={{
+          padding: "0 22px",
+          display: "block",
+          justifyContent: "center"
+        }}
       >
         {projectIndexes.map(e => (
           <ProjectCard key={e} index={e} registry={this.contract} />

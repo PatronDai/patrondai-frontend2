@@ -34,9 +34,12 @@ class ProjectCard extends Component {
         class="bx--tile"
         style={{
           textAlign: "left",
-          width: "33%",
+          width: "30%",
           margin: 10,
-          cursor: "pointer"
+          cursor: "pointer",
+          float: "left",
+          minHeight: "60vh",
+          wordBreak: "break-all"
         }}
       >
         <div style={{ padding: 4 }}>
@@ -47,7 +50,7 @@ class ProjectCard extends Component {
         </div>
         <div className="ProjectCard-image" style={{ padding: 4 }}>
           <img
-            style={{ width: 300, height: 200, objectFit: "cover" }}
+            style={{ width: "100%", objectFit: "cover" }}
             src={
               this.state.data.url ? this.state.data.url : this.state.data.image
             }

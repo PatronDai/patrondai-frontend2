@@ -78,7 +78,7 @@ export default class CreateNewForm extends Component {
               let tx = await contract.registerCampaign();
               const txReceipt = await tx.wait();
               console.log(txReceipt.logs);
-              const decodedEvents = new ethers.utils.defaultAbiCoder.decode(
+              const decodedEvents = ethers.utils.defaultAbiCoder.decode(
                 ["uint256", "address"],
                 txReceipt.logs[1].data
               );

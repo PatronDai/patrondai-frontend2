@@ -12,7 +12,7 @@
     "carbon-components": "^10.9.3",
     "carbon-components-react": "^7.9.3",
     "ethers": "^4.0.45",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "patrondai-contracts": "https://github.com/PatronDai/patrondai-contracts",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
